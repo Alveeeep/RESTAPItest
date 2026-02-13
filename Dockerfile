@@ -18,7 +18,7 @@ COPY --chown=app:app . .
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     UV_CACHE_DIR=/home/app/.cache/uv \
-    PATH="/app/.venv/bin:${PATH}" \
+    PATH="/app/.venv/bin:${PATH}"
 
 USER app
 
