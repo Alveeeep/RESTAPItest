@@ -1,10 +1,11 @@
 from pydantic import BaseModel
 from typing import Optional
+from geoalchemy2 import Geometry
 
 
 class BuildingBase(BaseModel):
     address: str
-    geometry: str
+    geometry: Geometry
     latitude: float
     longitude: float
 
