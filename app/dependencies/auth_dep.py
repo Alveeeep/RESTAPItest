@@ -2,8 +2,8 @@ from fastapi import Security, HTTPException, status
 from fastapi.security import APIKeyHeader
 from starlette.requests import Request
 from loguru import logger
+from app.config import settings
 
-API_KEY = "123456789qwertykey"
 API_KEY_NAME = "X-API-Key"
 
 api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
@@ -20,7 +20,7 @@ async def verify_api_key(
             detail="API Key is missing"
         )
 
-    if api_key != API_KEY:
+    if api_key != settings.API_KEY:
         logger.warning(f"Неверный API ключ: {api_key}. IP: {request.client.host}")
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
