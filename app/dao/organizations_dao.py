@@ -5,12 +5,13 @@ from app.dao.activities_dao import ActivityDAO
 from app.dao.base import BaseDAO
 from sqlalchemy.future import select
 from loguru import logger
-from geoalchemy2 import functions as geo_func
+from geoalchemy2 import functions as geo_func, Geography
 from app.models.activities import Activity
 from app.models.buildings import Building
 from app.models.phones import Phone
 from app.schemas.organizations import OrganizationCreate
 from app.models.organizations import Organization
+from sqlalchemy import cast
 
 
 class OrganizationDAO(BaseDAO[Organization]):
@@ -122,8 +123,8 @@ class OrganizationDAO(BaseDAO[Organization]):
             .join(self.model.building)
             .where(
                 geo_func.ST_DWithin(
-                    Building.geometry,
-                    point,
+                    cast(Building.geometry, Geography),
+                    cast(point, Geography),
                     radius
                 )
             )

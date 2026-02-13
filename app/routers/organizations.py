@@ -15,7 +15,7 @@ router = APIRouter(prefix="/organizations", tags=["Organizations"])
 
 
 @router.get(
-    "/{organization_id}",
+    "/id/{organization_id}",
     response_model=OrganizationDetail,
     summary="Детальная информация об организации",
     dependencies=[Depends(verify_api_key)]
@@ -84,7 +84,7 @@ async def get_organizations_by_building(
     dependencies=[Depends(verify_api_key)]
 )
 async def get_organizations_by_activity(
-        query: str = Query(..., min_length=2, max_length=50, description="Название вида деятельности"),
+        query: str = Query(min_length=2, max_length=50, description="Название вида деятельности"),
         session: AsyncSession = Depends(get_session_without_commit)
 ):
     activity_dao = ActivityDAO(session)
@@ -109,7 +109,7 @@ async def get_organizations_by_activity(
     dependencies=[Depends(verify_api_key)]
 )
 async def get_organizations_by_activity_with_children(
-        query: str = Query(..., min_length=2, max_length=50, description="Название вида деятельности"),
+        query: str = Query(min_length=2, max_length=50, description="Название вида деятельности"),
         session: AsyncSession = Depends(get_session_without_commit)
 ):
     activity_dao = ActivityDAO(session)

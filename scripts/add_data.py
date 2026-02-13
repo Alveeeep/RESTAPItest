@@ -54,8 +54,6 @@ async def seed_data():
 
         print("\nCreating activities...")
         activities_dao = ActivityDAO(session)
-        # Создаем деятельности (дерево)
-        # Уровень 1
         food = await activities_dao.create_activity_tree(
             name="Еда", parent_id=None
         )
@@ -66,7 +64,6 @@ async def seed_data():
         )
         print(f"Created activity: {auto.name} (level {auto.level})")
 
-        # Уровень 2
         meat = await activities_dao.create_activity_tree(
             name="Мясная продукция", parent_id=food.id
         )
@@ -87,7 +84,6 @@ async def seed_data():
         )
         print(f"Created activity: {cars.name} (level {cars.level})")
 
-        # Уровень 3
         parts = await activities_dao.create_activity_tree(
             name="Запчасти", parent_id=cars.id
         )
@@ -135,7 +131,7 @@ async def seed_data():
             OrganizationCreate(
                 name='ИП "Автозапчасти+"',
                 building_id=buildings[1].id,
-                phone_numbers=["8-495-777-88-99"],
+                phones=["8-495-777-88-99"],
                 activity_ids=[parts.id]
             ),
         ]
